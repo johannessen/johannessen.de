@@ -1,0 +1,1 @@
+class Puffer { Liste L;   Puffer ()   // Konstruktor   { L = new Liste ();   }    void speichere (int Zahl)   { if (Zahl >= 0) L.erzeuge_Fuss (Zahl);   }    int entnimm ()   { Element e = L.entnimm ();     if (e != null)       return e.Zahl;     else return -1;   } } 
