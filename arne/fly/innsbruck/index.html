@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML LANG="de"><HEAD>
+	<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="author" CONTENT="Arne Johannessen">
+	<LINK REV="author" HREF="mailto:webmaster&#64;johannessen.de">
+	<TITLE>Fly! Innsbruck</TITLE>
+</HEAD><BODY>
+	
+	<H1>Fly! Innsbruck 1.0</H1>
+	
+	<H2>Abstract</H2>
+	<P>This Fly!&nbsp;2K database update enables you to Fly! IFR around Innsbruck / Austria (LOWI / INN). The standard Fly!&nbsp;2K database lacks various navigational aids including two localizers and one NDB. This database update emulates both localizers with terminal VORs due to limitations in Fly!&nbsp;2K. You need to dial in the correct OBS before using any one of these &#8220;localizers&#8221;.</P>
+	
+	<H2>System Requirements</H2>
+	<UL>
+		<LI>Fly!&nbsp;2K (Fly! 1.0)</LI>
+		<LI>Fly! <ACRONYM TITLE="Database">DB</ACRONYM>-Import tool</LI>
+		<LI>Any Mac or PC capable of running Fly!&nbsp;2K</LI>
+	</UL>
+	<P>This update has not been tested with Fly!&nbsp;II (Fly! 2.0), but it might work. If you try this update with Fly! II, please send me your results to <A HREF="arne&#64;thaw.de">arne&#64;thaw.de</A>!</P>
+	
+	<H2 ID="download">Download</H2>
+	<P><A HREF="innsbruck-1.0.zip">innsbruck-1.0.zip</A> (2 <ACRONYM TITLE="kilobytes">kB</ACRONYM>)</P>
+	
+	<H2 ID="changelog">Version History</H2>
+	<DL>
+		<DT>Version 1.0, 2003-10-23</DT>
+		<DD><UL>
+			<LI>Switched the OEV implementation from a &#8220;phantom runway&#8221; ILS to a VOR/DME because I was neither able to receive the ILS overhead RTT (D26 OEV) nor able to create a 4.0&nbsp;&deg; glide slope (Fly! seem to use 3.0&nbsp;&deg; regardless of the actual figures in the ILS database).</LI>
+			<LI>Added PAPI left and right of both RWYs 26 and 08.</LI>
+			<LI>Improved general RWY and approach lighting.</LI>
+			<LI>Changed the DB keys to something sensible.</LI>
+		</UL></DD>
+		
+		<DT>Version 0.8, 2003-02-08</DT>
+		<DD><UL>
+			<LI>Created a &#8220;phantom runway&#8221; ILS to simulate the LLZ offset.</LI>
+		</UL></DD>
+		
+		<DT>Version 0.1, 2001-03-01</DT>
+		<DD><UL>
+			<LI>First public release.</LI>
+		</UL></DD>
+	</UL>
+	
+	<H2>Known Issues</H2>
+	<UL>
+		<LI>Both localizers have been implemented as VOR/DMEs (omnidirectional with no glide slope sender).</LI>
+		<LI>Both markers beacons have been implemented as standard outer and middle markers, respectively.</LI>
+	</UL>
+	<P>Don't expect any development regarding these problems. I do not know how to fix them.</P>
+	
+	<H2>Future Plans</H2>
+	<UL>
+		<LI>Add additional approach lighting (20 white flashing lights 4900&nbsp;m to 600&nbsp;m from THR&nbsp;26).</LI>
+		<LI>Convert a chart of the immediate vicinity of Innsbruck for use with Fly!'s moving map window.</LI>
+		<LI>Create ground scenery for the Innsbruck area.</LI>
+		<LI>Create airport buildings scenery.</LI>
+		<LI>Create additional obstruction models along the valley.</LI>
+	</UL>
+	<P>The approach lighting and the chart will be done soon, but I depend on certain <A HREF="http://software.thaw.de/">THAWsoftware</A> products for that. The scenery will probably be more difficult; any help is appreciated.</P>
+	
+	<H2>Screenshots</H2>
+	<P>
+		<A HREF="lowi1.jpeg"><IMG SRC="lowi1-thumb.jpeg" WIDTH="266" HEIGHT="199" ALT="[On the approach overhead RUM]"></A>
+		<A HREF="lowi2.jpeg"><IMG SRC="lowi2-thumb.gif" WIDTH="266" HEIGHT="199" ALT="[Short final 26 at night]"></A>
+		<A HREF="lowi3.gif"><IMG SRC="lowi3-thumb.gif" WIDTH="266" HEIGHT="199" ALT="[Vector map overview]"></A>
+	</P>
+	
+	<!--H2>Detailed Description</H2>
+	<P>The standard Fly! 2K database includes KTI (without marker), RTT and INN.
+
+> lowi-nav.dex adds AB, OEV and OEJ. The latter two are implemented as VORs instead of LLZs; the OBS of the "front course" is 255 for OEV and 068 for OEJ. OEV does not have a glide path because a 4 degree GP is not possible in Fly! 2K AFAIK.
+> lowi-ils.dex adds the KTI "K" marker and the RUM "R" marker. These are implemented as outer and middle marker, respectively.
+> lowi-rwy.dex adds the glider strip at the north of the AD as grass runway 26R / 08L and corrects the lighting of the hard surfaced runway, complete with PAPI.
+	</P-->
+	
+	<H2>Charts</H2>
+	<P>This update does not contain any charts or other information on the Innsbruck instrument procedures. I use some free charts from the SASFSS project, but they do not seem to be available on the web anymore. You may be able to find other charts at the following sources:</P>
+	<UL>
+		<LI><A HREF="http://www.flightsim.com/cgi/kds?$=main/howto/inns/inns.htm">http://www.flightsim.com/cgi/kds?$=main/howto/inns/inns.htm</A></LI>
+		<LI><A HREF="http://www.wicci.de/aviation/charts/">http://www.wicci.de/aviation/charts/</A></LI>
+		<LI><A HREF="http://www.firwien.at/text/aviation_text.htm">http://www.firwien.at/text/aviation_text.htm</A></LI>
+	</UL>
+	
+	<H2>LOWI OEV GS</H2>
+	<P>There has been some confusion on whether or not the OEV localizer (RWY&nbsp;26) is equipped with a glide slope sender (331.7&nbsp;MHz&nbsp;/ 4.0&nbsp;&deg;) in real life. I've found a <A HREF="http://www.jetphotos.net/viewphoto.php?id=95918">photo of the GS installation</A> on JetPhotos.Net, so it should be pretty clear now that the OEV localizer indeed has a glide slope sender. However, there is another localizer near Innsbruck which does not have a glide slope (that's OEJ, used for the West Procedure).</P>
+	
+</DIV></BODY></HTML>

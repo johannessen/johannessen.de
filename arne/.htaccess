@@ -1,0 +1,24 @@
+# arne.johannessen.de server configuration file
+# by Arne Johannessen
+# mailto:webmaster@johannessen.de
+
+
+#ErrorDocument 404 /.errorhandler.php
+
+<IfModule mod_mime.c>
+	<Files hotlist.html>
+		ForceType "text/html; charset=utf-8"
+	</Files>
+	<Files berichtigt.html>
+		ForceType "text/html; charset=utf-8"
+	</Files>
+	<Files katalog.html>
+		ForceType "text/html; charset=utf-8"
+	</Files>
+</IfModule>
+
+<IfModule mod_alias.c>
+	Redirect gone /favicon.ico
+	Redirect gone /robots.txt
+	Redirect 301 /hotlist.html http://arne.johannessen.de/hotlist
+</IfModule>

@@ -1,0 +1,27 @@
+# servo.thaw.de/emots
+# server configuration file
+# by Arne Johannessen
+# mailto:webmaster@thaw.de
+
+# last modified 2003-12-15 by webmaster@thaw.de
+
+
+<IfModule mod_autoindex.c>
+	
+	# Create some previews
+	IndexOptions -SuppressDescription
+	AddDescription '<IMG SRC="beef.gif" ALT="">' beef.gif
+	AddDescription '<IMG SRC="beer.gif" ALT="">' beer.gif
+	AddDescription '<IMG SRC="bigSmile.gif" ALT="">' bigSmile.gif
+	AddDescription '<IMG SRC="bounce.gif" ALT=":-jumpy" TITLE=":-jumpy">' bounce.gif
+	AddDescription '<IMG SRC="bouncePMDG.gif" ALT="">' bouncePMDG.gif
+	AddDescription '<IMG SRC="cross.gif" ALT="">' cross.gif
+	AddDescription '<IMG SRC="eek.gif" ALT="8-O" TITLE="8-O">' eek.gif
+	AddDescription '<IMG SRC="eekDrop.gif" WIDTH="5" HEIGHT="32" ALT="">' eekDrop.gif
+	AddDescription '<IMG SRC="hammer.gif" ALT="">' hammer.gif
+	AddDescription '<IMG SRC="smile.gif" ALT=":-)" TITLE=":-)">' smile.gif
+	AddDescription '<IMG SRC="smoke.gif" ALT="">' smoke.gif
+	AddDescription '<IMG SRC="wave.gif" ALT="">' wave.gif
+	AddDescription '<IMG SRC="wink.gif" ALT=";-)" TITLE=";-)">' wink.gif
+	
+</IfModule>

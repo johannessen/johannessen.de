@@ -1,0 +1,8 @@
+Title: FPinfo 1.1 with Flyscripts
+Author: Arne Johannessen
+Simulator: Fly!
+Freeware
+
+Description:
+This little script displays your flight plan while flying. Now the lazy people (like myself ;-) ) don't need to write it down or even interrupt the flight anymore -- just press a key to get the heading you have to fly after reaching the next waypoint. The displayed information will be like "Leg 5: WARBURG (6000ft) to MOHNE: 261° 40.7nm".
+Now with correct speed information and (hopefully) corrected display of the degree symbol on PCs.

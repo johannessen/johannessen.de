@@ -1,1 +1,0 @@
-class Element {    int Zahl;    Element Nf;    Element (int Zahl, Element Nf)    {        this.Zahl = Zahl;         this.Nf = Nf;    }}

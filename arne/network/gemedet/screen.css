@@ -1,0 +1,41 @@
+BODY {
+	margin: 24px;
+	color: black;
+	background-color: #fea;
+	font: 12px "Lucida Grande", sans-serif;
+	text-align: justify;
+}
+H1 {
+	display: block;
+	margin: 0;
+	padding: 0;
+	border: none;
+	width: 425px;
+	height: 70px;
+	background: url("gemedet.png") no-repeat;
+}
+.alt {
+	display: none;
+}
+#phoenix {
+	float: right;
+	font-size: x-small;
+	margin: .8em 24px .8em 1.2em;
+	padding: 0;
+}
+BLOCKQUOTE {
+	margin: 1em 24px;
+	padding: 0;
+	font: 15px "Apple Garamond BT", "Times", serif;
+}
+BLOCKQUOTE P {
+	margin: 0;
+	padding: 0;
+	text-indent: 1em;
+}
+BLOCKQUOTE P:first-child {
+	text-indent: 0;
+}
+BODY>P {
+	clear: right;
+}

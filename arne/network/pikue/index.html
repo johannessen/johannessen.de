@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html401/strict.dtd">
+<HTML LANG="de"><HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+	<META NAME="author" CONTENT="Arne Johannessen">
+	<LINK REV="made" HREF="mailto:webmaster@johannessen.de">
+	<TITLE>Pikue</TITLE>
+	<STYLE TYPE="text&#47;css" MEDIA="all"><!--
+BODY {
+	background: grey url("desktop-pattern.png") repeat;
+	margin: 0;
+}
+#screen1, #screen2, #menubar, #menubar #main, #aboutbox {
+	position: absolute;
+}
+#screen1, #screen2, #menubar {
+	width: 100%;
+}
+#screen1 {
+	background: transparent url("bottom.left.png") no-repeat bottom left;
+	height: 100%;
+}
+#screen2 {
+	background: transparent url("bottom.right.png") no-repeat bottom right;
+	height: 100%;
+}
+#menubar {
+	height: 19px;
+	background: white;
+	border-bottom: 1px solid black;
+	z-index: 2;
+}
+#menubar #main {
+	background: transparent url("menubar.png") no-repeat;
+	width: 154px;
+	height: 46px;
+}
+#menubar #right {
+	position: absolute;
+	background: transparent url("menubar.right.png") no-repeat;
+	width: 89px;
+	height: 20px;
+	right: 0;
+}
+#aboutbox {
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -253px;
+	z-index: 1;
+}
+#aboutbox H1 {
+	font: 36pt "Apple Garamond BT", serif;
+	font-weight: bold;
+	font-style: italic;
+}
+#aboutbox P EM {
+	font: 10pt "Palatino", serif;
+	font-style: normal;
+}
+#aboutbox P STRONG {
+	font: 12pt "Palatino", serif;
+	font-weight: bold;
+}
+#aboutbox P.trademark {
+	font: 9pt "Geneva", sans-serif;
+}
+#aboutbox P {
+	font: 10pt "Geneva", sans-serif;
+}
+#aboutbox P CODE {
+	font: 10pt "Courier", monospace;
+}
+--></STYLE>
+</HEAD><BODY ID="de-johannessen-arne-network-pikue"><DIV ID="screen1"><DIV ID="screen2">
+<DIV ID="menubar">
+	<SPAN ID="main"></SPAN>
+	<SPAN ID="right"></SPAN>
+</DIV>
+<OBJECT DATA="aboutbox.png" TYPE="image/png" WIDTH="505" HEIGHT="299" ID="aboutbox">
+	<H1>A/UX Login</H1>
+	<P><EM>by Dave Payne &amp; Jackie Macapanpan<BR>&copy; Apple Computer, Inc.</EM></P>
+	<P><STRONG>Login controls access to this machine, which is running A/UX, Apple's version of the UNIX&reg; operating system.</STRONG></P>
+	<P CLASS="trademark">A/UX is a registered trademark od Apple Computer, Inc.<BR>UNIX is a registered trademark of AT&amp;T Informations Systems.</P>
+	<P>A separate account should be created for each person who needs to use the system on a regular basis. To create a new account, log in as root an use the '<CODE>adduser</CODE>' command. Refer to "Setting up Accounts and Peripherals for A/UX" for more information.</P>
+	<P>For security, each account should have a password. To change the password on an existing account from within Login, choose the Change Password&#8230; menu item from the Options menu. Set the password for the root account immediately; remember the password, but don't write it in an obvious place.</P>
+	<P>The Guest button on the main dialog box is enabled only if there is an account for Guest, as indicated by an entry in the <CODE>/etc/passwd</CODE> file.</P>
+</OBJECT>
+</DIV></DIV></BODY></HTML>
