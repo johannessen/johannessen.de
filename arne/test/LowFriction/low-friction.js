@@ -26,6 +26,14 @@ function loadDataAndCreateGraphs (fileUrls, dlOut) {
 function loadResource (uri, didLoad) {
 	if (! uri) { return; }
 	var httpRequest = new XMLHttpRequest();
+	if (window.ActiveXObject) {
+		try {  // work around issue with IE not loading local files
+			httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		catch (exception) {
+			// silently ignore this condition
+		}
+	}
 	httpRequest.onreadystatechange = function () {
 		if (httpRequest.readyState == 4) {
 			if (httpRequest.status == 200 || httpRequest.status == 0) {
@@ -39,7 +47,7 @@ function loadResource (uri, didLoad) {
 	};
 	
 	httpRequest.open('GET', uri);
-	httpRequest.send(null);
+	httpRequest.send(null);  // :FIX: Firefox < 3.5 braucht hier 'null'
 }
 
 
@@ -91,39 +99,42 @@ function createDataGraph (omss) {
 	var verticalExaggeration = 5;
 	var scale = 3 + 1/3;
 	
-	var data = omss.data;
 	var points = '';
-	var minX = Infinity;
-	var maxX = -Infinity;
-	for (var i = 0; i < data.length; i++) {
-		var point = data[i];
-		points += '' + (i * scale) + ',' + (point.x * verticalExaggeration * scale) + ' ';
-		if (point.x > maxX) {
-			maxX = point.x;
+	var minY = Infinity;
+	var maxY = -Infinity;
+	for (var i = 0; i < omss.data.length; i++) {
+		var point = omss.data[i];
+		var pointYSvg = point.y * -1;
+		points += '' + (i * scale) + ',' + (pointYSvg * verticalExaggeration * scale) + ' ';
+		if (point.y > maxY) {
+			maxY = point.y;
 		}
-		if (point.x < minX) {
-			minX = point.x;
+		if (point.y < minY) {
+			minY = point.y;
 		}
 	}
+	minY = Math.min(-.75, minY);  // have some space for axis legend
 	
-	omss.maxValue = maxX;
-	omss.minValue = minX;
-	maxX *= verticalExaggeration * scale;
-	minX *= verticalExaggeration * scale;
-	var height = maxX - minX;
-	var width = (data.length - 1) * scale;
+	omss.maxValue = maxY;
+	omss.minValue = minY;
+	maxY *= verticalExaggeration * scale;
+	minY *= verticalExaggeration * scale;
+	var height = Math.abs(maxY - minY);
+	var width = (omss.data.length - 1) * scale;
 	var svg = 'http://www.w3.org/2000/svg';
 	
 	var root = document.createElementNS(svg, 'svg');
 	root.setAttribute('height', '' + height + 'px');
 	root.setAttribute('width', '' + width + 'px');
 	var transformation = document.createElementNS(svg, 'g');
-	transformation.setAttribute('transform', 'translate(0,' + maxX + ') scale(1, -1)');
+	transformation.setAttribute('transform', 'translate(0,' + maxY + ')');
 	var polyline = document.createElementNS(svg, 'polyline');
 	polyline.setAttribute('points', points);
 	polyline.setAttribute('class', 'results');
 	
-	transformation.appendChild( getGraphBackgroundGroup(width, height, omss.minValue, omss.maxValue, scale, verticalExaggeration) );
+	var template = getGraphTemplate(width, height, omss.minValue, omss.maxValue, scale, verticalExaggeration, omss.data)
+	transformation.appendChild(template.background);
+	transformation.appendChild(template.text);
 	transformation.appendChild(polyline);
 	root.appendChild(transformation);
 	return root;
@@ -131,29 +142,64 @@ function createDataGraph (omss) {
 
 
 
-function getGraphBackgroundGroup (width, height, minValue, maxValue, scale, verticalExaggeration) {
+function getGraphTemplate (width, height, minValue, maxValue, scale, verticalExaggeration, data) {
 	var minY = minValue * scale * verticalExaggeration;
 	var maxY = maxValue * scale * verticalExaggeration;
 	var svg = 'http://www.w3.org/2000/svg';
 	var backgroundGroup = document.createElementNS(svg, 'g');
+	var textGroup = document.createElementNS(svg, 'g');
 	
+	var ordinateTextNode = document.createElementNS(svg, 'text');
+	ordinateTextNode.setAttribute('class', 'ordinate');
 	for (var i = 0; i < 101; i += 5) {
 		var x = i * scale;
+		var isMajor = i % 25 == 0;
+		
 		var ordinate = document.createElementNS(svg, 'polyline');
-		ordinate.setAttribute('points', '' + x + ',' + minY + ' ' + x + ',' + maxY);
-		ordinate.setAttribute('class', (i % 25 == 0 ? 'major' : 'minor') + ' grid');
+		ordinate.setAttribute('points', '' + x + ',' + -minY + ' ' + x + ',' + -maxY);
+		ordinate.setAttribute('class', (isMajor ? 'major' : 'minor') + ' grid');
 		backgroundGroup.appendChild(ordinate);
+		
+		if (isMajor) {
+			var ordinateTextSpan = document.createElementNS(svg, 'tspan');
+			ordinateTextSpan.setAttribute('x', x);
+			ordinateTextSpan.setAttribute('y', 0);
+			ordinateTextSpan.appendChild(document.createTextNode( formatNumber(data[i].x, 0) + '°' ));
+			ordinateTextNode.appendChild(ordinateTextSpan);
+			ordinateTextNode.appendChild(ordinateTextSpan.cloneNode(true));
+			ordinateTextSpan.setAttribute('class', 'mask');
+		}
 	}
+	textGroup.appendChild(ordinateTextNode);
 	
-	for (var i = Math.floor(minValue); i <= Math.ceil(maxValue); i += 1) {
+	var abscissaTextNode = document.createElementNS(svg, 'text');
+	abscissaTextNode.setAttribute('class', 'abscissa');
+	for (var i = Math.floor(minValue) * -1; i >= Math.ceil(maxValue) * -1; i -= 1) {
 		var y = i * scale * verticalExaggeration;
+		var isMajor = i % 5 == 0;
+		
 		var abscissa = document.createElementNS(svg, 'polyline');
 		abscissa.setAttribute('points', '0,' + y + ' ' + width + ',' + y);
-		abscissa.setAttribute('class', (i % 5 == 0 ? 'major' : 'minor') + ' grid' + (i == 0 ? ' axis' : ''));
+		abscissa.setAttribute('class', (isMajor ? 'major' : 'minor') + ' grid' + (i == 0 ? ' axis' : ''));
 		backgroundGroup.appendChild(abscissa);
+		
+		if (isMajor && i != Math.floor(minValue) * -1 && i != Math.ceil(maxValue) * -1) {
+			var abscissaTextSpan = document.createElementNS(svg, 'tspan');
+			abscissaTextSpan.setAttribute('x', width / 2);
+			abscissaTextSpan.setAttribute('y', y);
+			abscissaTextSpan.appendChild(document.createTextNode( formatNumber(-i, 0) + ' mNm ' ));
+			abscissaTextNode.appendChild(abscissaTextSpan);
+			abscissaTextNode.appendChild(abscissaTextSpan.cloneNode(true));
+			abscissaTextSpan.setAttribute('class', 'mask');
+		}
 	}
+	textGroup.appendChild(abscissaTextNode);
 	
-	return backgroundGroup;
+	
+	return {
+		background: backgroundGroup,
+		text: textGroup
+	}
 }
 
 
@@ -177,7 +223,14 @@ function addGraphToDom (graphNode, dlNode, file, omss) {
 	ddNode.appendChild(graphNode);
 	
 	var torqueLimitsInfoNode = document.createElement('p');
-	torqueLimitsInfoNode.innerHTML = '<var>m</var><sub><var>x</var>,min</sub> = ' + formatTorque(omss.minValue) + ' mNm; <var>m</var><sub><var>x</var>,max</sub></var> = ' + formatTorque(omss.maxValue) + ' mNm';
+	var average = 0;
+	for (var i = 0; i < omss.data.length; i++) {
+		average += omss.data[i].y;
+	}
+	average /= omss.data.length;
+	torqueLimitsInfoNode.innerHTML = '<var>m</var><sub><var>x</var>,min</sub> ≈ ' + formatNumber(omss.minValue) + ' mNm' +
+			';  <var>m</var><sub><var>x</var>,max</sub> ≈ ' + formatNumber(omss.maxValue) + ' mNm' +
+			';  <span style="text-decoration: overline"><var>m</var><sub><var>x</var></sub></span> ≈ ' + formatNumber(average) + ' mNm';
 	ddNode.appendChild(torqueLimitsInfoNode);
 	
 	var comments = omss.comments;
@@ -200,19 +253,31 @@ function addGraphToDom (graphNode, dlNode, file, omss) {
 
 
 
+function findInsertionNodeUsingInsertSort (title, listNode) {
+	var nodes = listNode.getElementsByTagName('dt');
+	for (var i = 0; i < nodes.length; i++) {
+		var term = nodes[i].getElementsByTagName('strong')[0].innerHTML;
+		if (term > title) {
+			return nodes[i];
+		}
+	}
+	return null;
+}
+
+
+
 function basename (path) {
 	return path.replace(/^.*\//g, '');
 }
 
 
 
-function formatTorque (torque, digits) {
+function formatNumber (number, digits) {
 	var digits = Math.abs(parseInt(digits));
 	if (isNaN(digits)) { digits = 1; }
-	var torqueCents = roundToEven(parseFloat(torque) * Math.pow(10, digits)).toString();
-	torqueCents = torqueCents.replace(/-/, '−');
-	var torqueInt = torqueCents.substr(0, torqueCents.length - digits);
-	return torqueInt + (torqueInt.match(/[0-9]$/) ? '' : '0') + ',' + torqueCents.substr(-digits);
+	var numberCents = roundToEven(parseFloat(number) * Math.pow(10, digits)).toString();
+	var numberInt = numberCents.substr(0, numberCents.length - digits).replace(/-/, '−');
+	return numberInt + (numberInt.match(/[0-9]$/) ? '' : '0') + (digits ? ',' + numberCents.substr(-digits) : '');
 }
 
 
@@ -226,17 +291,4 @@ function roundToEven (number) {
 		return Math.round(number);
 	}
 	return (roundDown % 2 == 0) ? roundDown : Math.ceil(number);
-}
-
-
-
-function findInsertionNodeUsingInsertSort (title, listNode) {
-	var nodes = listNode.getElementsByTagName('dt');
-	for (var i = 0; i < nodes.length; i++) {
-		var term = nodes[i].getElementsByTagName('strong')[0].innerHTML;
-		if (term > title) {
-			return nodes[i];
-		}
-	}
-	return null;
 }

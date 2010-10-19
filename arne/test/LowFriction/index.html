@@ -7,10 +7,10 @@
 var omssFormat = {
 	nStartCol: 1,
 	nEndCol: 6,
-	xStartCol: 37,
-	xEndCol: 47,
-	yStartCol: 97,
-	yEndCol: 106
+	yStartCol: 37,
+	yEndCol: 47,
+	xStartCol: 97,
+	xEndCol: 106
 }
 var files = [
 	'TESTSLOT.DAT',
@@ -26,15 +26,22 @@ var files = [
 dt strong { font-weight: bold; }
 dd { margin-bottom: 1.5em; margin-left: 0; }
 p { margin: 0; }
-svg { padding: 2px; border: 1px solid #ddc; background: #ffd; }
+svg { padding: 2px 7px; border: 1px solid #eed; background: #ffd; }
 </style>
 <style> /* SVG */
-polyline { fill: none; stroke: black; stroke-width: 1; }
+polyline { fill: none; stroke: black; stroke-width: 1; stroke-linecap: square; }
 .grid { stroke: red; }
-.grid.axis { stroke: blue; }
+/* .grid.axis { stroke: blue; } */
 .major { }
 .minor { stroke-width: .33; }
 polyline.results { stroke-width: 1.5; }
+text { font-family: "Arial", sans-serif; font-size: 11px; font-weight: bold; }
+text.ordinate, text.abscissa { fill: red; }
+text.ordinate tspan { alignment-baseline: before-edge; text-anchor: middle; }
+text.abscissa tspan { alignment-baseline: middle; text-anchor: end; }
+text tspan.mask{ fill: #ffd; stroke: #ffd; stroke-width: 2px; }
 </style>
 
 <dl id=out></dl>
+
+<noscript>This Web Application requires JavaScript.</noscript>

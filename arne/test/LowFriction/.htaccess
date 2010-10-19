@@ -6,4 +6,5 @@ AddType application/javascript .js
 
 Redirect 303 /test/LowFriction/1.html http://arne.johannessen.de/test/LowFriction/
 Redirect 303 /test/LowFriction/1.js http://arne.johannessen.de/test/LowFriction/low-friction.js
-
+Redirect 303 /test/LowFriction/2.html http://arne.johannessen.de/test/LowFriction/
+Redirect 303 /test/LowFriction/2.js http://arne.johannessen.de/test/LowFriction/low-friction.js
