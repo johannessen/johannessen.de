@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset=UTF-8>
+<title>Low Friction OMSS</title>
+
+<script src=low-friction.js charset=UTF-8></script>
+<script>
+var omssFormat = {
+	nStartCol: 1,
+	nEndCol: 6,
+	xStartCol: 37,
+	xEndCol: 47,
+	yStartCol: 97,
+	yEndCol: 106
+}
+var files = [
+	'TESTSLOT.DAT',
+	'TSTSLOT1.DAT',
+	'TSTSLOT2.DAT',
+	'TSTSLOT3.DAT',
+	'TSTSLOT4.DAT',
+	'TSTSLOT5.DAT',
+];
+</script>
+
+<style> /* HTML */
+dt strong { font-weight: bold; }
+dd { margin-bottom: 1.5em; margin-left: 0; }
+p { margin: 0; }
+svg { padding: 2px; border: 1px solid #ddc; background: #ffd; }
+</style>
+<style> /* SVG */
+polyline { fill: none; stroke: black; stroke-width: 1; }
+.grid { stroke: red; }
+.grid.axis { stroke: blue; }
+.major { }
+.minor { stroke-width: .33; }
+polyline.results { stroke-width: 1.5; }
+</style>
+
+<dl id=out></dl>

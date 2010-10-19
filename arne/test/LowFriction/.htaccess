@@ -1,0 +1,9 @@
+AddCharset cp850 .DAT
+AddType text/plain .DAT
+AddCharset UTF-8 .html
+AddCharset UTF-8 .js
+AddType application/javascript .js
+
+Redirect 303 /test/LowFriction/1.html http://arne.johannessen.de/test/LowFriction/
+Redirect 303 /test/LowFriction/1.js http://arne.johannessen.de/test/LowFriction/low-friction.js
+
