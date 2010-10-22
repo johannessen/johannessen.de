@@ -10,6 +10,13 @@ window.onload = function () {
 
 
 function loadDataAndCreateGraphs (fileUrls, dlOut) {
+	var valueSpan = document.getElementById('value');
+	var maxSpan = document.getElementById('max');
+	if (valueSpan && maxSpan) {
+		maxSpan.innerHTML = fileUrls.length;
+	}
+	var value = 0;
+	
 	for (var j = 0; j < fileUrls.length; j++) {
 		var url = fileUrls[j];
 		
@@ -17,6 +24,11 @@ function loadDataAndCreateGraphs (fileUrls, dlOut) {
 			var omss = parseOmssData(data, omssFormat);
 			var graph = createDataGraph(omss);
 			addGraphToDom(graph, dlOut, urlLoaded, omss);
+			
+			value += 1;
+			if (valueSpan && maxSpan) {
+				valueSpan.innerHTML = value;
+			}
 		});
 	}
 }
@@ -100,12 +112,20 @@ function createDataGraph (omss) {
 	var scale = 3 + 1/3;
 	
 	var points = '';
+	var minX = Infinity;
+	var maxX = -Infinity;
 	var minY = Infinity;
 	var maxY = -Infinity;
 	for (var i = 0; i < omss.data.length; i++) {
 		var point = omss.data[i];
 		var pointYSvg = point.y * -1;
 		points += '' + (i * scale) + ',' + (pointYSvg * verticalExaggeration * scale) + ' ';
+		if (point.x > maxX) {
+			maxX = point.x;
+		}
+		if (point.x < minX) {
+			minX = point.x;
+		}
 		if (point.y > maxY) {
 			maxY = point.y;
 		}
@@ -113,13 +133,15 @@ function createDataGraph (omss) {
 			minY = point.y;
 		}
 	}
-	minY = Math.min(-.75, minY);  // have some space for axis legend
+	minYPx = Math.min(-.75, minYPx);  // have some space for axis legend
 	
+	omss.maxValueX = maxX;
+	omss.minValueX = minX;
 	omss.maxValue = maxY;
 	omss.minValue = minY;
-	maxY *= verticalExaggeration * scale;
-	minY *= verticalExaggeration * scale;
-	var height = Math.abs(maxY - minY);
+	var maxYPx = maxY * verticalExaggeration * scale;
+	var minYPx = minY * verticalExaggeration * scale;
+	var height = Math.abs(maxYPx - minYPx);
 	var width = (omss.data.length - 1) * scale;
 	var svg = 'http://www.w3.org/2000/svg';
 	
@@ -127,12 +149,12 @@ function createDataGraph (omss) {
 	root.setAttribute('height', '' + height + 'px');
 	root.setAttribute('width', '' + width + 'px');
 	var transformation = document.createElementNS(svg, 'g');
-	transformation.setAttribute('transform', 'translate(0,' + maxY + ')');
+	transformation.setAttribute('transform', 'translate(0,' + maxYPx + ')');
 	var polyline = document.createElementNS(svg, 'polyline');
 	polyline.setAttribute('points', points);
 	polyline.setAttribute('class', 'results');
 	
-	var template = getGraphTemplate(width, height, omss.minValue, omss.maxValue, scale, verticalExaggeration, omss.data)
+	var template = getGraphTemplate(width, height, scale, verticalExaggeration, omss)
 	transformation.appendChild(template.background);
 	transformation.appendChild(template.text);
 	transformation.appendChild(polyline);
@@ -142,32 +164,30 @@ function createDataGraph (omss) {
 
 
 
-function getGraphTemplate (width, height, minValue, maxValue, scale, verticalExaggeration, data) {
-	var minY = minValue * scale * verticalExaggeration;
-	var maxY = maxValue * scale * verticalExaggeration;
+function getGraphTemplate (width, height, scale, verticalExaggeration, omss) {
+	var minValue = omss.minValue;
+	var maxValue = omss.maxValue;
+	var data = omss.data;
+	
+	var minYPx = minValue * scale * verticalExaggeration;
+	var maxYPx = maxValue * scale * verticalExaggeration;
 	var svg = 'http://www.w3.org/2000/svg';
 	var backgroundGroup = document.createElementNS(svg, 'g');
 	var textGroup = document.createElementNS(svg, 'g');
 	
 	var ordinateTextNode = document.createElementNS(svg, 'text');
 	ordinateTextNode.setAttribute('class', 'ordinate');
-	for (var i = 0; i < 101; i += 5) {
+	for (var i = 0; i <= data.length; i += 5) {
 		var x = i * scale;
-		var isMajor = i % 25 == 0;
+		var isMajor = data[i].x == omss.maxValueX || data[i].x == omss.minValueX || data[i].x % 5 == 0;
 		
 		var ordinate = document.createElementNS(svg, 'polyline');
-		ordinate.setAttribute('points', '' + x + ',' + -minY + ' ' + x + ',' + -maxY);
+		ordinate.setAttribute('points', '' + x + ',' + -minYPx + ' ' + x + ',' + -maxYPx);
 		ordinate.setAttribute('class', (isMajor ? 'major' : 'minor') + ' grid');
 		backgroundGroup.appendChild(ordinate);
 		
 		if (isMajor) {
-			var ordinateTextSpan = document.createElementNS(svg, 'tspan');
-			ordinateTextSpan.setAttribute('x', x);
-			ordinateTextSpan.setAttribute('y', 0);
-			ordinateTextSpan.appendChild(document.createTextNode( formatNumber(data[i].x, 0) + '°' ));
-			ordinateTextNode.appendChild(ordinateTextSpan);
-			ordinateTextNode.appendChild(ordinateTextSpan.cloneNode(true));
-			ordinateTextSpan.setAttribute('class', 'mask');
+			appendNewAxisTextSpans(x, 0, ordinateTextNode, formatNumber(data[i].x, 0) + '°');
 		}
 	}
 	textGroup.appendChild(ordinateTextNode);
@@ -184,13 +204,7 @@ function getGraphTemplate (width, height, minValue, maxValue, scale, verticalExa
 		backgroundGroup.appendChild(abscissa);
 		
 		if (isMajor && i != Math.floor(minValue) * -1 && i != Math.ceil(maxValue) * -1) {
-			var abscissaTextSpan = document.createElementNS(svg, 'tspan');
-			abscissaTextSpan.setAttribute('x', width / 2);
-			abscissaTextSpan.setAttribute('y', y);
-			abscissaTextSpan.appendChild(document.createTextNode( formatNumber(-i, 0) + ' mNm ' ));
-			abscissaTextNode.appendChild(abscissaTextSpan);
-			abscissaTextNode.appendChild(abscissaTextSpan.cloneNode(true));
-			abscissaTextSpan.setAttribute('class', 'mask');
+			appendNewAxisTextSpans(width / 2, y, abscissaTextNode, formatNumber(-i, 0) + ' mNm ');
 		}
 	}
 	textGroup.appendChild(abscissaTextNode);
@@ -200,6 +214,19 @@ function getGraphTemplate (width, height, minValue, maxValue, scale, verticalExa
 		background: backgroundGroup,
 		text: textGroup
 	}
+}
+
+
+
+function appendNewAxisTextSpans (x, y, axisTextNode, text) {
+	var svg = 'http://www.w3.org/2000/svg';
+	var axisTextSpan = document.createElementNS(svg, 'tspan');
+	axisTextSpan.setAttribute('x', x);
+	axisTextSpan.setAttribute('y', y);
+	axisTextSpan.appendChild(document.createTextNode( text ));
+	axisTextNode.appendChild(axisTextSpan);
+	axisTextNode.appendChild(axisTextSpan.cloneNode(true));
+	axisTextSpan.setAttribute('class', 'mask');
 }
 
 
