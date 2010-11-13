@@ -1,0 +1,8 @@
+AddType text/xml .osm
+AddType text/javascript .js
+
+IndexIgnore data lib
+
+#<Files test.svg>
+#Header set Access-Control-Allow-Origin http://arne.johannessen.de
+#</Files>

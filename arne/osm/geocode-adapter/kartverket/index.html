@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<meta charset=UTF-8>
+<title>Kartgrunnlag © Kartverket, Geovekst og kommuner</title><!-- attribution -->
+<meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name=apple-mobile-web-app-capable content=yes>
+<meta name=apple-mobile-web-app-status-bar-style content=black-translucent>
+
+<style>
+html, body {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+body {
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: .9em;
+}
+#replacement {
+	font-size: 200%;
+	text-align: center;
+	margin: 2em;
+}
+.olControlPermalink, .olControlScale, .olControlScaleLine {
+	text-shadow: white 1px 1px 2px;
+	text-shadow: white 1px 1px 0, white -1px 1px 0, white 1px -1px 0, white -1px -1px 0;
+}
+.olControlPermalink, .olControlScale {
+	right: 1em !important;
+}
+.olControlPermalink {
+	bottom: 1em !important;
+/*
+	bottom: 2.5em !important;
+}
+.olControlScale {
+	bottom: 1em !important;
+*/
+/* the scale doesn't work geodesic (don't know why) */
+}
+.olControlScaleLineBottom {
+	display: none;
+}
+@media only screen and (max-width: 600px) {
+	/* meant for the iPhone: zoom by pinching, hence no controls required */
+	/* also, the permalink doesn't work on iOS anyway for some reason, so don't need it */
+	.olControlZoom, .olControlPanZoomBar, .olControlPermalink {
+		display: none !important;
+	}
+}
+</style>
+
+<script>
+if (document.addEventListener) {
+	document.addEventListener('DOMContentLoaded', function () {
+		document.getElementById('replacement').innerHTML = 'Map loading…';
+	}, false);
+}
+
+window.onload = function () {
+	var wgs84 = new OpenLayers.Projection("EPSG:4326");
+	
+	var controls = [
+		new OpenLayers.Control.Navigation({zoomWheelEnabled: false, documentDrag: true, zoomBoxEnabled: false}),
+		new OpenLayers.Control.ArgParser({displayProjection: wgs84}),
+		new OpenLayers.Control.PanZoomBar({panIcons: false}),
+		new OpenLayers.Control.LayerSwitcher(),
+		new OpenLayers.Control.Permalink({displayProjection: wgs84}),
+		new OpenLayers.Control.ScaleLine({geodesic:true}),
+//		new OpenLayers.Control.Scale({geodesic:true}),  // doesn't work geodesic (don't know why)
+	];
+	
+	var googleAerialLayer;
+	var layers = [
+		new OpenLayers.Layer.OSM("OpenStreetMap Carto"),
+		new OpenLayers.Layer.Statkart("Topografisk norgeskart", {name: 'Kartverket topographic'}),
+//		new OpenLayers.Layer.Statkart("Topografisk rasterkart", {name: 'Kartverket raster'}),
+		new OpenLayers.Layer.Statkart("Kartdata", {name: 'Kartverket data'}),
+		new OpenLayers.Layer.Statkart("Sjøkart", {name: 'Kartverket nautical'}),
+		new OpenLayers.Layer.Statkart("Europakart", {name: 'Kartverket Europe'}),
+		new OpenLayers.Layer.DFS("DFS ICAO"),
+//		new OpenLayers.Layer.DFS("DFS VFR-Planung"),
+//		new OpenLayers.Layer.DFS("DFS Lower Enroute"),
+		new OpenLayers.Layer.OSM("OpenStreetMap Transport", [
+			"http://a.tile.thunderforest.com/transport/${z}/${x}/${y}.png",
+			"http://b.tile.thunderforest.com/transport/${z}/${x}/${y}.png",
+			"http://c.tile.thunderforest.com/transport/${z}/${x}/${y}.png" ]),
+		new OpenLayers.Layer.OSM("OpenStreetMap Landscape", [
+			"http://a.tile.thunderforest.com/landscape/${z}/${x}/${y}.png",
+			"http://b.tile.thunderforest.com/landscape/${z}/${x}/${y}.png",
+			"http://c.tile.thunderforest.com/landscape/${z}/${x}/${y}.png" ]),
+//		new OpenLayers.Layer.OSM("OpenStreetMap Outdoors", [
+//			"http://a.tile.thunderforest.com/outdoors/${z}/${x}/${y}.png",
+//			"http://b.tile.thunderforest.com/outdoors/${z}/${x}/${y}.png",
+//			"http://c.tile.thunderforest.com/outdoors/${z}/${x}/${y}.png" ]),
+		new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 19}),
+		new OpenLayers.Layer.Google("Google Physical", {type: google.maps.MapTypeId.TERRAIN}),
+		googleAerialLayer = new OpenLayers.Layer.Google("Google Aerial", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 21}),
+		new OpenLayers.Layer.OSM("OpenStreetMap Carto @ 50 % <br>(<a href=http://www.openstreetmap.org/copyright style=color:white!important>©</a> by OSM contributors)", undefined, { isBaseLayer: false, visibility: false, opacity: .62 }),
+	];
+	
+	var defaults = {
+		center: new OpenLayers.LonLat(8, 60.2),
+		zoom: 7,
+		layer: layers[1]
+	};
+	
+	document.getElementById('map').innerHTML = '';
+	var map = new OpenLayers.Map({
+		div: 'map',
+		projection: new OpenLayers.Projection("EPSG:900913"),
+		controls: controls,
+		layers: layers
+	});
+	googleAerialLayer.mapObject.setTilt( location.href.match(/g=45/) ? 45 : 0 );
+	if (! map.getCenter()) {
+		map.setCenter( defaults.center.transform(wgs84, map.getProjectionObject()), defaults.zoom );
+	}
+	if (! OpenLayers.Util.getParameters(window.location.href).layers) {
+		map.setBaseLayer( defaults.layer );
+	}
+}
+</script>
+<script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+<script src="http://openlayers.org/api/OpenLayers.js"></script>
+<!--script src="http://dev.openlayers.org/releases/OpenLayers-2.12/lib/OpenLayers.js"></script-->
+<script src="tile.statkart.js"></script>
+<script src="tile.dfs.js"></script>
+
+<body id=map>
+<p id=replacement>JavaScript error
