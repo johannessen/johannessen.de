@@ -1,0 +1,77 @@
+/* start zapper */
+* {margin: 0; padding: 0; font-size: 1em; font-weight: normal; font-variant: normal; font-style: normal; text-indent: 0; border: none;}
+/*
+:active {cursor: progress}
+a:hover, a:active {cursor: default}
+ul, ol {list-style:inside none}
+a img, table, table th, table td {border:none}
+*/
+/* end zapper */
+
+html {
+	background: #333 url(bg-photo.jpg) repeat fixed 60% 50%;
+	-webkit-background-size: 1843px 1078px;
+	width: 80%;
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 4em 0;
+	font: 17px/1.36 "Myriad Pro", "Myriad", "Verdana", sans-serif;
+	color: black;
+	text-align: left;
+}
+hgroup, p {
+	background: #eee url(bg-container.jpg) repeat fixed 60% 50%;
+	margin: 1.5em 0;
+	padding: .5em .75em;
+}
+
+html {
+	position:absolute; z-index:-1;
+	top:0; bottom:0; left:0; right: 0;
+	overflow:auto;
+}
+body {
+	position:relative;
+/*
+	float:left;
+*/
+	width:100%;
+	padding:0;
+}
+
+/* known issue:
+ * iOS WebKit doesn't support background-attachment: fixed
+ * until I have a solution, the background is set to repeat itself;
+ * this looks really bad, but is still better than the alternative
+ */
+
+hgroup, h1 {
+	letter-spacing: .08em;
+	text-align: center;
+	margin: 0;
+}
+hgroup {
+	font-family: "Adobe Jenson Pro", "Garamond", "Palatino", "Palatino Linotype", "Georgia", serif;
+	font-weight: light;
+	border-radius: 1.5em;
+}
+h1 {
+	font-size: 3.5em;
+	padding: 0;
+}
+strong {
+	font-weight: bold;
+}
+i.name {
+	text-transform: uppercase;
+	font-size: .9em;
+	font-style: normal;
+}
+:link, :visited {
+	text-decoration: underline;
+	color: #2465cb;
+}
+hr {
+	padding: 0;
+	margin: 4em;
+}

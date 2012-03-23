@@ -22,5 +22,5 @@
 	Redirect gone /robots.txt
 	Redirect gone /hotlist
 	Redirect 301 /hotlist.html http://arne.johannessen.de/hotlist
-	Redirect 307 /~joar0011/ http://www.home.hs-karlsruhe.de/~joar0011/
+	Redirect 301 /~raan0001/ http://www.kartographen.de/2011/20110916%20Rauner%20Nachruf%20KN%20Bearbeitung.shtml
 </IfModule>
