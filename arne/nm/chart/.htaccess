@@ -1,0 +1,3 @@
+Redirect permanent /nm/chart/index.html http://arne.johannessen.de/nm/publications-catalogue
+Redirect permanent /nm/chart/7 http://arne.johannessen.de/nm/
+Redirect permanent /nm/chart/12T http://arne.johannessen.de/nm/chart/12B

@@ -1,0 +1,188 @@
+/*
+Theme Name: NM
+Author: Arne Johannessen
+Version: 0.3
+Template: twentyeleven
+*/
+
+@import url(../twentyeleven/style.css);
+
+
+/* Adjust Theme CSS ============================================== */
+
+
+/* make titles a bit smaller (they "scream" a little too loud by default) */
+.entry-title, .singular .entry-title {
+	font-size: 1.2em;
+}
+
+/* make main menu buttons more accessible */
+#access {
+	background-color: #777 !important;
+}
+
+/* make margins etc. more sensible (they're generally too large by default) */
+p, ul, ol {
+	margin-top: .67em;
+	margin-bottom: .67em;
+}
+.entry-content, .entry-summary {
+	padding-top: .5em;
+}
+.entry-title {
+	padding-bottom: 0;
+}
+.entry-content h1 {
+	margin-top: 1.5em;
+	margin-bottom: .5em;
+}
+.singular .entry-meta .edit-link a {
+	top: 45px;
+}
+.singular .hentry, .singular.page .hentry {
+	padding-top: 45px;
+}
+.singular .entry-title {
+	padding-top: 0;
+	line-height: normal;
+}
+.singular #content nav#nav-single {
+	/* this may screw small displays ... still need to test this */
+	position: absolute;
+	right: 0;
+	width: 12em;
+}
+@media print {
+	/* not sure what's wrong with the default print style sheet, but this line fixes it for lists at least */
+	.left-sidebar #content {
+		margin-left: 0;
+		margin-right: 0;
+		width: auto;
+	}
+}
+
+
+/* CSS specific to NM =========================================== */
+
+
+/* NM: representation of cartographic symbols */
+.int1symbol {
+	/* offset symbols visibly from the text surrounding them */
+	margin: 0;
+	padding: 0 .4em;
+	color: black;
+}
+.int1symbol+.int1symbol {
+	/* two symbols next to each other makes them related, so these are supposed to be close  */
+	padding-left: 0;
+	margin-left: -.4em;
+}
+.int1symbol>i {
+	/* water-related features (buoys, soundings etc.) */
+	font-style: italic;
+}
+.int1symbol>b {
+	/* names of buoys, lights etc. and related information (light character etc.) */
+	font-weight: bold;
+	font-size: .8em;
+}
+
+
+/* NM: cancelled NM */
+/* cancelled NM are not yet handled well; this is a stop-gap measure */
+s.cancelled {
+	text-decoration: line-through;
+}
+article .source-logo+.entry-meta {
+	clear: left;
+}
+
+
+.nmyear {
+	font-weight: normal;
+	text-decoration: underline;
+	font-size: .9em;
+}
+.nmorig img {
+	max-height: .9em;
+}
+
+
+.tag header>.thumb {
+	float: right;
+}
+.tag header>.thumb img {
+	border: 1px solid #ddd;
+}
+.tag header>hr {
+	clear: right;
+}
+.tag header>h1 {
+	clear: left;  /* undo clear:right in parent theme */
+	margin-bottom: 0;
+}
+
+
+article .source-logo {
+	float: right;
+	max-width: 120px;
+	margin: 0 0 1.5em 2.5em;
+}
+.single-post article .source-logo {
+	float: none;
+	position: absolute;
+	right: 0;
+	max-width: 120px;
+}
+article .source-logo:before {
+	content: 'Source: ';
+	font-size: 1ex;
+	font-weight: bold;
+	color: #bbb;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+article .source-logo img {
+	margin-top: 1ex;
+}
+article .source-logo.DE {
+	width: 55px;
+}
+article .source-logo.NO {
+	width: 100px;
+}
+article .source-logo.NO:before {
+	padding-left: 11px;
+}
+article .source-logo.NO_Kystverket {
+	width: 100px;
+}
+article .source-logo.NO_Kystverket:before {
+	padding-left: 5px;
+}
+article .source-logo.SKGB {
+	width: 100px;
+}
+
+
+
+/* Misc ==================================================== */
+
+
+/* the search form position is still a BIG problem */
+#branding .only-search #searchform {
+	top: 9.6em;
+}
+#branding .only-search + #access div {
+    padding-right: 0;
+}
+/*
+#branding .only-search #searchform {
+	position: static;
+	float: right;
+}
+#access {
+	float: none;
+	clear: left;
+}
+*/
