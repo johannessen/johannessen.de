@@ -1,0 +1,22 @@
+
+AuthType Basic
+AuthName "Charts 2013"
+Require valid-user
+
+AuthBasicProvider file
+AuthUserFile /srv/arne/charts/2013/.htpasswd
+
+<IfModule mod_autoindex.c>
+	# Create some previews
+	IndexOptions -SuppressDescription
+	
+	ReadmeName README.html
+	
+	AddDescription 'ENC Usage 1 = overview / &Uuml;bersegler' usage1
+	AddDescription 'ENC Usage 2 = general / Segelkarten' usage2
+	AddDescription 'ENC Usage 3+4 = coastal + approach / K&uuml;stenkarten + Ansteuerungskarten' usage34
+</IfModule>
+
+<IfModule mod_alias.c>
+	Redirect /charts/2013/SE_beteckningar_konturer.pdf http://www.sjofartsverket.se/pages/378/beteckningar_konturer.pdf
+</IfModule>
