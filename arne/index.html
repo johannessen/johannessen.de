@@ -1,45 +1,148 @@
 <!DOCTYPE html>
-<html id=scrollwrapper lang=en>
+<html lang=en>
 <meta charset=UTF-8>
 <title>Arne Johannessen</title>
-<!--
-<script src=iscroll-lite.js></script>
-<script>
-/*
-var myScroll;
-function loaded() {
-	myScroll = new iScroll('scrollwrapper');
+<meta name=viewport content="initial-scale=1">
+<base href=https://arne.johannessen.de/>
+
+<style>
+html { font-family: "Helvetica", "Arial", "FreeSans", "Liberation Sans", sans-serif; background: #450 /* footer */; color: white; line-height: 1.2; letter-spacing: .01em; }
+html, body, h1, ul, p, button, img { margin: 0; padding: 0; }
+header>*, main>*, footer { position: relative; max-width: 50rem; margin: 0 auto; }
+header, main, footer { padding: 2ex 6%; }
+header { padding-bottom: 3.5ex; background: #a7bd50; color: #450; font-weight: bold; }
+main { background: #f4f5f0; color: black; padding-top: 6ex; padding-bottom: 5ex; }
+footer { display: grid; grid-template-columns: 9fr 6fr 5fr; padding-bottom: 5ex; }
+@media only screen and (max-width: 40em) {
+	header, main, footer { padding-left: 4%; grid-template-columns: 1fr; }
+	main { padding-top: 4.5ex; padding-bottom: 4ex; }
+	header#ajnn a { display: none !important; }
 }
-document.addEventListener('DOMContentLoaded', loaded, false);
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-*/
+
+a { cursor: not-allowed; opacity: .6; }
+a:link, a:visited { cursor: pointer; opacity: 1; text-decoration: underline; text-decoration-color: #a7bd50; }
+a:hover, a:active { background: #b5c76c; color: #450 !important; outline: #b5c76c solid 2px; }
+main a:link, main a:visited { color: #450; }
+footer a:link, footer a:visited { color: inherit; }
+a[type="application/pdf"]:after {
+	font-size: .9em;
+	content: " [PDF]";
+}
+
+header:after { display: block; position: absolute; left:0; right: 0; top:auto; height:4.5ex; z-index: 1; content: " "; margin-top: .5ex; background-image: linear-gradient(#a7bd50, #f4f5f0); }
+h1 { font-size: 1.5em; margin-bottom: 1ex; }
+
+footer ul { list-style: none; padding-bottom: 2ex; }
+footer li { margin-bottom: 1.2ex; }
+
+main section { position: relative; }
+main section:before, main section:last-child:after { content: " "; display: block; position: absolute; border-right: 1px solid black; top: 0; left: -0.5px; width: 0; opacity: .5; }
+main section:first-child:before { left: 0; }
+main section:last-child:after { left: auto; right: 0; }
+
+#scroll-outer { max-width: none; background: inherit;}
+#scroll-outer button { display: block; position: absolute; top: 1px; z-index: 1; border: none; background: inherit; color: inherit; font-size: inherit; }
+#scroll-left { left: 0; }
+#scroll-right { right: 0; }
+#scroll-inner { border: 0 grey solid; border-width: 1px 0; overflow: auto; overflow-y: hidden; }
+#scroll-content { overflow: hidden; }
+#scroll-content:after { content: " "; width: 0; } /* when leaving this rule out, the floating hides the right padding */
+#scroll-content>* { float: left; }
+
+#scroll-outer button, #scroll-content, main section img, main section:before, main section:last-child:after { height: 16em; }
+main section img { width: 16em; }
+#scroll-content { width: calc(16em * 12); }
+#scroll-outer { max-width: calc(16em * 12 + 2em * 2); }
+#scroll-outer button { width: 2em; }
+#scroll-content { padding: 0 2em; }
+@media only screen and (max-width: 40em) {
+	#scroll-outer button, #scroll-content, main section img { height: 10em; }
+	main section img { width: 10em; }
+	#scroll-content { width: calc(10em * 12); }
+	#scroll-outer { max-width: calc(10em * 12 + 2em * 2); }
+}
+
+header#ajnn h1:after { display: inline-block; position: absolute; margin: -.4ex 0 0 .9em; z-index: 1; content: " "; width: 1.5em; height: 1.5em; background-image: url(avatar.png); background-size: contain; border-radius: .3em; border: solid #450 .6px; }
+header#ajnn a { display: block; padding: .4ex .4em; position: absolute; top: 0; right: 0; color: #450; text-decoration: none; border: solid #450 1.5px; }
+header#ajnn a:hover, header a:active { background: #450; color: white; }
+#comm .type { display: inline-block; width: 3em; }
+abbr { text-decoration: none; }
+</style>
+
+<header id=ajnn>
+<div>
+<h1>Arne Johannessen</h1>
+<p>Cartographer and Software Developer
+</div>
+</header>
+
+<main>
+<div id=scroll-outer>
+<button type=button id=scroll-left>◀</button>
+<div id=scroll-inner><div id=scroll-content>
+	<section><img src="portfolio/C52-Conwy-Bay.png" alt=C52-Conwy-Bay></section>
+	<section><img src="portfolio/NA-Irland.png" alt=NA-Irland></section>
+	<section><img src="portfolio/comb3_geo_proj_zip.jpg" alt=1471J></section>
+	<section><img src="portfolio/2004095.png" alt=2004095></section>
+	<section><img src="portfolio/osm-brucher-17.png" alt=osm-brucher-17></section>
+	<section><img src="portfolio/64.png" alt=64></section>
+	<section><img src="portfolio/contours_25.jpg" alt=1290J></section>
+	<section><img src="portfolio/AWCS.png" alt=AWCS></section>
+	<section><img src="portfolio/1530.png" alt=1530J></section>
+	<section><img src="portfolio/shot1_frame0276.jpg" alt=shot1_frame0276></section>
+	<section><img src="portfolio/Tucson.png" alt=Tucson></section>
+	<section><img src="portfolio/10.png" alt=10></section>
+</div></div>
+<button type=button id=scroll-right>▶</button>
+</div>
+</main>
+
+<footer>
+<ul id=comm><!-- semantically perhaps <section> or <address> -->
+	<li>Arne Johannessen
+	<br>Am Schlagbaum 4
+	<br>51709 Marienheide
+	<br>Germany <img src="data:image/gif;base64,R0lGODlhEAAMAJEAAAAAAP8AAP%2FMAAAAACH5BAAAAAAALAAAAAAQAAwAAAIVhI%2Bpy%2B0dopy02oszFrz7D4biSI4FADs%3D" alt="" style="border: 1px solid white; vertical-align: top; margin-left: .2em; position: relative; top: .1ex">
+	<li><span class=type title="email (preferred)">mail</span> <a href=mailto:arne-9544@thaw.de rel=author>arne-9544@thaw.de</a>
+	<li><span class=type title="landline phone (with voice mail; good for use 24/7)">voice</span> <a href=tel:+49.2264.4194994>+49 2264 4194994</a>
+	<br><span class=type title="facsimile (not secure)">fax</span> <a href=tel:+49.2264.4194995>+49 2264 4194995</a>
+	<li><span class=type title="XMPP / Jabber chat">xmpp</span> <abbr title="on request only">O/R</abbr>
+	<li><span class=type title="OpenPGP key">pgp</span> <a href=pgp/75EB52B0.asc rel=pgpkey>6e73 c112 75eb 52b0</a>
+	<li>languages   <abbr title=English>EN</abbr>, <abbr title=German>DE</abbr>, <abbr title=Norwegian>NO</abbr>
+	<br>
+</ul>
+<ul id=services><!-- semantically perhaps <section> or <nav> -->
+	<li><a href=//github.com/johannessen>GitHub</a>
+	<br><a href=//metacpan.org/author/AJNN>CPAN</a>
+	<li><a href=//rafting.io/@nautofon>Fediverse</a>
+	<br><a href=//twitter.com/nautofon>Twitter</a>
+	<br><a href=//keybase.io/johannessen rel=me>Keybase</a>
+	<li><a href=//wiki.openstreetmap.org/wiki/User:Arne_Johannessen>OpenStreetMap</a>
+	<li><a href=//www.skgb.de/ hreflang=de onclick="location.href='https://www.skgb.de/author/arne';return false;">SKGB</a>
+	<br><a href=//software.thaw.de/>THAWsoftware</a>
+</ul>
+<ul id=projects><!-- semantically perhaps <section> or <nav> -->
+	<li><a href=//brucher.info/ hreflang=de>brucher.info</a>
+	<br><a href=//xn--lve-zna.de/>ølve.de</a>
+	<li><a href=/nm/>Notices to Mariners</a>
+	<br><a href=//twitter.com/slaggrunnslinje>Slaggrunnslinje</a>
+	<li><a>Blog</a>
+	<br><a href=//xn--lve-zna.de/jobs.pl>Jobs</a>
+	<li><a href=/thesis/>Thesis</a>
+	<br><a href=/~joar0011/ hreflang=de>Teaching</a>
+	<li><a href=/Attic>Attic</a>
+</ul>
+</footer>
+
+<script>
+addEventListener('DOMContentLoaded', function(){
+	function scroll (f) {
+		var pane = document.getElementById('scroll-inner');
+		var x = pane.scrollLeft + (innerWidth * .9 - 16 * 4) * f;
+		if (! pane.scrollTo) { pane.scrollLeft = x; return; }
+		pane.scrollTo({ top: 0, left: x, behavior: 'smooth' });
+	}
+	document.getElementById('scroll-right').onclick = function(){ scroll(.67); };
+	document.getElementById('scroll-left').onclick = function(){ scroll(-.67); };
+});
 </script>
--->
-<style>@import url(style.css);</style>
-
-<hgroup>
-<h1>Large Corrections</h1>
-<h2>by Arne Johannessen</h2>
-</hgroup>
-
-<p><strong>Welcome to Arne’s personal pages.</strong> A lot of my stuff is either not online or in walled gardens, so there's not much more than a couple of links in this space at this time. But hey, that’s better than nothing, right?
-
-<p>Even though this page’s name may imply radical change, it’s actually fairly static. I simply don’t have time to run a blog. You can <a href="http://twitter.com/nautofon">follow me on Twitter</a> if you like, but don’t expect too much activity there, either. (Also, you better be prepared for some language diversity.)
-
-<p>In the meantime, you might be interested in <a href="/~joar0011/" hreflang=de>my outdated <strong>professional home page</strong></a> (German only) or <a href="https://github.com/johannessen" rel=me>my <strong>Github</strong> profile</a>.
-
-<p>The one part of this site that does see (more or less) regular updates are <a href="/nm/">my <strong>Notices to Mariners (NM)</strong></a>.
-
-<hr>
-
-<p><strong>So what is a Large Correction, anyway?</strong> <a href="http://en.wikipedia.org/wiki/Nautical_chart">Nautical charts</a> always need to be as up-to-date as possible to facilitate safe navigation at sea. Nautical chart producers achieve this by publishing <a href="http://en.wikipedia.org/wiki/Notice_to_mariners">Notices to Mariners</a> (NM) containing all relevant updates. On occasion, however, chart updates are so extensive that they are simply too big for being published in NM. Chart publishers then have the option of producing a new edition of the chart from scratch, which used to be a considerable expense in the age of lithography. Consequently, publishers tended to prefer performing the required corrections directly onto the chart original in as many cases as possible. The resulting chart was then advertised as having “Large Corrections” (LC).
-
-<p>Both the term as well as the concept of “Large Corrections” have now fallen out of favour. The use of <a href="http://en.wikipedia.org/wiki/Geographic_information_system">GIS</a> and <a href="http://en.wikipedia.org/wiki/Desktop_publishing">DTP</a> now allows easy production of revised chart reprints, “NM Blocks”—paper chartlets that can be pasted onto the chart by the mariner—, or even entire new editions printed on demand. Where Large Corrections are still being used, the <a href="http://www.iho.int/">IHO</a> is now recommending to call them “Limited New Editions” (LNE) instead.
-
-<hr>
-
-<p><strong>On another note,</strong> I’m involved with the <a href="http://www.skgb.de/" hreflang=de>sailing club <strong>SKGB</strong></a> at a reservoir lake near where I grew up. In fact, I’m a member of the board, so I <a href="http://www.skgb.de/author/arne" hreflang=de>write</a> a bit there, too. The club’s site is German-only and is going to stay that way. Feel free to send us email in English or other languages though—we used to have club members coming from Britain, Denmark and even Japan!
-
-<p>The German TMG act of 2007 makes me add this <strong>imprint:</strong> This service is provided by Arne Johannessen, Sinnerstraße 4, 76185 Karlsruhe, Germany. You can contact me through Twitter (<a href="https://twitter.com/nautofon">@nautofon</a>) or by email (<a href="mailto:arne-5656@thaw.de" rel="author">arne-5656@thaw.de</a>). You’re encouraged to get (and use) <a href="pgp/75EB52B0.asc" rel=pgpkey>my <strong>PGP</strong> public key</a>; verify it on <a href="https://keybase.io/johannessen" rel=me>Keybase</a> if you like.
-
-<p>Lastly, I have to disclose that the <a href="http://www.flickr.com/photos/30701306@N06/2881229155/">background photo</a> was taken by <a href="http://www.flickr.com/photos/30701306@N06/">Horizon2035</a> rather than myself.
