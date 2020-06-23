@@ -104,7 +104,7 @@ function apply_nm_content_options_theme ($content) {
 			break;
 		case 'NO_Kystverket':
 #			$uri = 'http://pbs.twimg.com/profile_images/1247588988/9168775.jpg';
-			$uri = '/nm/wp-content/themes/nm/sources/Kystverket.jpg';
+			$uri = '/nm/wordpress/wp-content/themes/nm/sources/Kystverket.png';
 			break;
 		case 'SKGB':
 			$uri = 'http://www.skgb.de/extensions/themes/skgb5/images/logo.gif';
