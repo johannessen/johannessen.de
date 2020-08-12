@@ -4,6 +4,8 @@
 <title>Arne Johannessen</title>
 <meta name=viewport content="initial-scale=1">
 <base href=https://arne.johannessen.de/>
+<link rel=apple-touch-icon href=avatar.png>
+<link rel=icon href=avatar.png>
 
 <style>
 html { font-family: "Helvetica", "Arial", "FreeSans", "Liberation Sans", sans-serif; background: #450 /* footer */; color: white; line-height: 1.2; letter-spacing: .01em; }
@@ -51,15 +53,15 @@ main section:last-child:after { left: auto; right: 0; }
 
 #scroll-outer button, #scroll-content, main section img, main section:before, main section:last-child:after { height: 16em; }
 main section img { width: 16em; }
-#scroll-content { width: calc(16em * 12); }
-#scroll-outer { max-width: calc(16em * 12 + 2em * 2); }
+#scroll-content { width: calc(16em * 11); }
+#scroll-outer { max-width: calc(16em * 11 + 2em * 2); }
 #scroll-outer button { width: 2em; }
 #scroll-content { padding: 0 2em; }
 @media only screen and (max-width: 40em) {
 	#scroll-outer button, #scroll-content, main section img { height: 10em; }
 	main section img { width: 10em; }
-	#scroll-content { width: calc(10em * 12); }
-	#scroll-outer { max-width: calc(10em * 12 + 2em * 2); }
+	#scroll-content { width: calc(10em * 11); }
+	#scroll-outer { max-width: calc(10em * 11 + 2em * 2); }
 }
 
 header#ajnn h1:after { display: inline-block; position: absolute; margin: -.4ex 0 0 .9em; z-index: 1; content: " "; width: 1.5em; height: 1.5em; background-image: url(avatar.png); background-size: contain; border-radius: .3em; border: solid #450 .6px; }
@@ -86,13 +88,12 @@ abbr { text-decoration: none; }
 	<section><img src="portfolio/comb3_geo_proj_zip.jpg" alt=1471J></section>
 	<section><img src="portfolio/2004095.png" alt=2004095></section>
 	<section><img src="portfolio/osm-brucher-17.png" alt=osm-brucher-17></section>
-	<section><img src="portfolio/64.png" alt=64></section>
-	<section><img src="portfolio/contours_25.jpg" alt=1290J></section>
-	<section><img src="portfolio/AWCS.png" alt=AWCS></section>
-	<section><img src="portfolio/1530.png" alt=1530J></section>
-	<section><img src="portfolio/shot1_frame0276.jpg" alt=shot1_frame0276></section>
-	<section><img src="portfolio/Tucson.png" alt=Tucson></section>
-	<section><img src="portfolio/10.png" alt=10></section>
+	<section><img src="portfolio/64.png" loading=lazy alt=64></section>
+	<section><img src="portfolio/contours_25.jpg" loading=lazy alt=1290J></section>
+	<section><img src="portfolio/AWCS.png" loading=lazy alt=AWCS></section>
+	<section><img src="portfolio/1530.png" loading=lazy alt=1530J></section>
+	<section><img src="portfolio/shot1_frame0276.jpg" loading=lazy alt=shot1_frame0276></section>
+	<section><img src="portfolio/10.png" loading=lazy alt=10></section>
 </div></div>
 <button type=button id=scroll-right>▶</button>
 </div>
