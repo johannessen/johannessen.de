@@ -14,10 +14,15 @@
 	</Files>
 </IfModule>
 
+<IfModule mod_autoindex.c>
+	AddDescription "Arnes aktueller Schluessel / Arne's current public key" current.asc
+</IfModule>
 <IfModule mod_alias.c>
+	Redirect 301 /pgp/current.asc https://arne.johannessen.de/pgp/75EB52B0.asc
 	Redirect gone /favicon.ico
-	Redirect gone /robots.txt
 	Redirect gone /hotlist
 	Redirect 301 /hotlist.html http://arne.johannessen.de/hotlist
-	Redirect 301 /~raan0001/ http://www.kartographen.de/2011/20110916%20Rauner%20Nachruf%20KN%20Bearbeitung.shtml
+	Redirect 301 /~raan0001/ http://hans-f-kern.dyndns.org/DGfK/2011/20110901%20Rauner.shtml
+	Redirect 301 /thesis/thesis.pdf https://arne.johannessen.de/thesis/Joh18_OSMHighwayMerge.pdf
+	Redirect 301 /brucher.info https://arne.johannessen.de/brucher-info
 </IfModule>
