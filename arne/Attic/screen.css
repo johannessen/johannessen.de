@@ -1,0 +1,162 @@
+/* arne.johannessen.de standard stylesheet
+ * Version 0.5
+ * CSS 2.0
+ *
+ * Copyright (c) 2000-04 Arne Johannessen
+ * mailto:webmaster@johannessen.de
+ */
+
+HTML>BODY {
+	margin: 25px;
+	font-family: "Garamond", "Palatino", serif;
+	font-size: 100%;
+	color: black;
+	background-color: #dfd;
+}
+#content {
+	background: white;
+	color: inherit;
+	border: green 1px solid;
+	padding: 25px;
+}
+A>IMG {
+	border: none;
+}
+*>ACRONYM, *>ABBR {
+	font-style: inherit;
+	font-variant: inherit;
+}
+H1, H2 {
+	font-size: 120%;
+}
+H3, H4 {
+	font-size: 100%;
+}
+H1, H2, H3, H4 {
+	margin-top: 1em;
+	margin-bottom: .5em;
+	font-family: "Garamond", "Palatino", serif;
+}
+H1:first-child, H2:first-child, H3:first-child, H4:first-child, #content:first-child {
+	margin-top: 0;
+}
+#content P, #content UL {
+	margin: .5em 0;
+}
+#content UL {
+	padding: 0 0 0 2em;
+}
+BODY>.hide, BODY>.ahem {
+	display: none !important;
+}
+
+
+H1.inset {
+	float: right;
+	background-color: #dfd;
+	color: inherit;
+	margin: 0 0 25px 25px;
+	padding: 0 0 25px 25px;
+	border-color: green;
+	border-width: 0 0 1px 1px;
+	border-style: none none solid solid;
+}
+
+
+/*BODY>#menu {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 210px !important;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	color: white;
+	background-color: #333ffb;	
+}
+#menu>P {
+	margin: 0 0 3em;
+	padding: 0;
+}
+BODY>#menu UL, BODY>#menu UL LI {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+#menu>UL A, #menu>UL A:visited, #menu>#last {
+	display: block;
+	margin: 0 1em;
+	padding: 1ex;
+	border-style: solid;
+	border-width: 1px 1px 0 1px;
+	border-color: white;
+	color: white;
+	background: #333ffb;
+	text-decoration: none;
+}
+#menu>UL A:hover, #menu>UL A:active {
+	background: #646efa;
+}
+#menu>UL STRONG>A#hereami {
+	color: #333ffb;
+	background-color: white;
+}
+#menu>UL STRONG {
+	font-weight: inherit;
+}
+#menu>#last {
+	border-width: 1px 0 0 0;
+	height: 100%;
+}
+
+#content {
+	background-color: transparent;
+}
+#content .newSection {
+	margin-top: 2em;
+}
+#content .thumbnail {
+	float: right;
+	margin-left: 1.2em;
+	margin-bottom: .8em;
+}
+#content .license {
+	font-size: .8em;
+}
+#content DD UL {
+	margin-top: 0;
+	margin-left: 0;
+	padding-left: 0;
+}
+#content DD {
+	margin-bottom: 1em;
+}
+#content TABLE#instructionSet {
+	border: none;
+	border-spacing: 0;
+	font-family: "Monaco", monospace;
+}
+#content TABLE#instructionSet TD {
+	margin: 0;
+	padding: 0 1em 0 0;
+}
+#content TABLE#instructionSet TR:first-child, #content TABLE#instructionSet TH {
+	display: none;
+}
+
+UL.thumbs, UL.thumbs LI {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+UL.thumbs LI {
+	float: left;
+	color: inherit;
+	margin-right: 1em;
+	margin-bottom: 1em;
+}
+.thumbsClear {
+	padding-top: 1em;
+	clear: left !important;
+}
+*/

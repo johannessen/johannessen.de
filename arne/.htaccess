@@ -18,11 +18,34 @@
 	AddDescription "Arnes aktueller Schluessel / Arne's current public key" current.asc
 </IfModule>
 <IfModule mod_alias.c>
-	Redirect 301 /pgp/current.asc https://arne.johannessen.de/pgp/75EB52B0.asc
+	Redirect 301 /pgp/current.asc https://arne.johannessen.de/pgp/B36D5E19.asc
 	Redirect gone /favicon.ico
-	Redirect gone /hotlist
-	Redirect 301 /hotlist.html http://arne.johannessen.de/hotlist
 	Redirect 301 /~raan0001/ http://hans-f-kern.dyndns.org/DGfK/2011/20110901%20Rauner.shtml
 	Redirect 301 /thesis/thesis.pdf https://arne.johannessen.de/thesis/Joh18_OSMHighwayMerge.pdf
 	Redirect 301 /brucher.info https://arne.johannessen.de/brucher-info
+</IfModule>
+
+# Cleanup 2023-09
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule ^((fly|music|network|online)(/.*)?)$ /Attic/$1 [L]
+	RewriteRule ^(islets)(/.*)?$ /Attic/$1 [L]
+	RewriteRule ^(collection)(\.php)?$ /Attic/$1 [L]
+	RewriteRule ^(screen.css)$ /Attic/$1 [L]
+	RewriteRule ^(kjhgdk.*)$ /Attic/$1 [L]
+	RewriteRule ^(filmliste|hotlist|wunschliste)[./]? - [R=410,L]
+	RewriteRule ^Attic/forbidden - [R=403,L]
+	RewriteRule ^(temp/)?(job1541(/.*)?)$ /Attic/$2 [R=301,L]
+	RewriteRule ^(test/)?([Aa]xonometrie.*|LowFriction.*|news.pl)$ /Attic/$2 [R=301,L]
+	RewriteRule ^(test/)?(Poster.*)$ /Attic/LowFriction-$2 [R=301,L]
+</IfModule>
+<IfModule mod_alias.c>
+	Redirect 301 /osm https://arne.johannessen.de/Attic/osm
+	Redirect 301 /index.php https://arne.johannessen.de/
+	Redirect 301 /index2.html https://arne.johannessen.de/
+	Redirect 410 /bg-container.jpg
+	Redirect 410 /bg-photo.jpg
+	Redirect 410 /screen.1.css
+	Redirect 410 /style.css
+	Redirect 410 /style~.css
 </IfModule>

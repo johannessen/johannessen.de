@@ -1,6 +1,8 @@
 #! /usr/bin/perl
 # $Id: news.pl 2013-08-15 aj3 $
 
+# 1320J
+
 use strict;
 use warnings;
 use 5.007;
