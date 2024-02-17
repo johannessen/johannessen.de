@@ -49,3 +49,13 @@
 	Redirect 410 /style.css
 	Redirect 410 /style~.css
 </IfModule>
+
+<IfModule mod_rewrite.c>
+	# handle broken mail clients such as Android 9 [RFC1738:2.2]
+	RewriteEngine On
+	RewriteBase /
+	RewriteRule ^(.*)>$ $1 [R=301,L]
+</IfModule>
+
+Options +ExecCGI
+AddHandler cgi-script .pl
